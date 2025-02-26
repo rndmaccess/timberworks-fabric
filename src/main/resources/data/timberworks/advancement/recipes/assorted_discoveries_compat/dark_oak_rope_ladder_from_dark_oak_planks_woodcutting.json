@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timberworks:dark_oak_rope_ladder_from_dark_oak_planks_woodcutting"
+    ]
+  },
+  "criteria": {
+    "has_dark_oak_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dark_oak_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "timberworks:dark_oak_rope_ladder_from_dark_oak_planks_woodcutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_oak_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:and",
+      "values": [
+        {
+          "condition": "fabric:all_mods_loaded",
+          "values": [
+            "assorted-discoveries"
+          ]
+        },
+        {
+          "condition": "assorted-discoveries:config_entry_enabled",
+          "value": "assorted-discoveries:enable_wooden_rope_ladders"
+        }
+      ]
+    }
+  ]
+}

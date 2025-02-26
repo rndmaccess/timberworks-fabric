@@ -1,0 +1,15 @@
+{
+  "name": "timberworks:nether_cabin/warped_forest/start",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 10,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "timberworks:nether_cabin/warped_forest/warped_forest_cabin",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

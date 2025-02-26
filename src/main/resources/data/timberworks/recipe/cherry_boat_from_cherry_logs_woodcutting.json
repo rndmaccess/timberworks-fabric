@@ -1,0 +1,8 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:cherry_logs",
+  "result": {
+    "count": 1,
+    "id": "minecraft:cherry_boat"
+  }
+}

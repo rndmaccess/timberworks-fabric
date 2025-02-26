@@ -1,0 +1,8 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:crimson_stems",
+  "result": {
+    "count": 4,
+    "id": "minecraft:crimson_planks"
+  }
+}

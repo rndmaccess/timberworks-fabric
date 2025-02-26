@@ -1,0 +1,8 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:oak_logs",
+  "result": {
+    "count": 1,
+    "id": "minecraft:oak_boat"
+  }
+}

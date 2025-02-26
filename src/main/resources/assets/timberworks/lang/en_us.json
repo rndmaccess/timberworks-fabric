@@ -1,0 +1,33 @@
+{
+  "item.timberworks.woodcutter": "Woodcutter",
+
+  "container.timberworks.woodcutter": "Woodcutter",
+
+  "advancements.timberworks.story.root.title": "Timberworks",
+  "advancements.timberworks.story.root.description": "Start the game with Timberworks installed",
+  "advancements.timberworks.story.find_nether_cabin.title": "A long way from home",
+  "advancements.timberworks.story.find_nether_cabin.description": "Visit a cabin in the nether",
+
+  "entity.minecraft.villager.lumberjack": "Lumberjack",
+
+  "category.timberworks.wood_cutting": "Wood Cutting",
+
+  "itemGroup.timberworks": "Timberworks Mod",
+
+  "category.cloth-config.timberworks.option.structures": "Structures",
+  "text.cloth-config.timberworks.option.structures.enable_forest_cabins": "Enable Forest Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_dark_forest_cabins": "Enable Dark Forest Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_birch_forest_cabins": "Enable Birch Forest Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_taiga_cabins": "Enable Taiga Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_snowy_taiga_cabins": "Enable Snowy Taiga Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_crimson_forest_cabins": "Enable Crimson Forest Cabins",
+  "text.cloth-config.timberworks.option.structures.enable_warped_forest_cabins": "Enable Warped Forest Cabins",
+
+  "requirement.cloth-config.timberworks.option.structures.enable_forest_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_dark_forest_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_birch_forest_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_taiga_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_snowy_taiga_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_crimson_forest_cabins": "Requires Woodcutter",
+  "requirement.cloth-config.timberworks.option.structures.enable_warped_forest_cabins": "Requires Woodcutter"
+}

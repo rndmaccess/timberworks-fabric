@@ -1,0 +1,30 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 724628428,
+    "separation": 8,
+    "spacing": 32
+  },
+  "structures": [
+    {
+      "structure": "timberworks:cabin_forest",
+      "weight": 1
+    },
+    {
+      "structure": "timberworks:cabin_taiga",
+      "weight": 1
+    },
+    {
+      "structure": "timberworks:cabin_dark_forest",
+      "weight": 1
+    },
+    {
+      "structure": "timberworks:cabin_birch_forest",
+      "weight": 1
+    },
+    {
+      "structure": "timberworks:cabin_snowy_taiga",
+      "weight": 1
+    }
+  ]
+}

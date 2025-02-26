@@ -1,0 +1,57 @@
+{
+  "parent": "timberworks:story/root",
+  "criteria": {
+    "warped_forest_cabin": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "timberworks:warped_forest_cabin"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "crimson_forest_cabin": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "timberworks:crimson_forest_cabin"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.timberworks.story.find_nether_cabin.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:polished_blackstone_bricks"
+    },
+    "title": {
+      "translate": "advancements.timberworks.story.find_nether_cabin.title"
+    }
+  },
+  "requirements": [
+    [
+      "warped_forest_cabin",
+      "crimson_forest_cabin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
+

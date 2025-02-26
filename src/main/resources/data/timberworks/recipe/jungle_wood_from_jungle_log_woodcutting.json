@@ -1,0 +1,8 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "minecraft:jungle_log",
+  "result": {
+    "count": 1,
+    "id": "minecraft:jungle_wood"
+  }
+}

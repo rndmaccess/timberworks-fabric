@@ -1,0 +1,8 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "minecraft:crimson_planks",
+  "result": {
+    "count": 1,
+    "id": "minecraft:crimson_pressure_plate"
+  }
+}

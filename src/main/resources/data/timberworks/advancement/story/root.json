@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "woodcutter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "timberworks:woodcutter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/oak_planks.png",
+    "description": {
+      "translate": "advancements.timberworks.story.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "timberworks:woodcutter"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.timberworks.story.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "woodcutter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
