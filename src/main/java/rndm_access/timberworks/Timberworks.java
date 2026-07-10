@@ -2,10 +2,10 @@ package rndm_access.timberworks;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rndm_access.timberworks.core.*;
@@ -36,11 +36,12 @@ public class Timberworks implements ModInitializer {
 	}
 
     public static Identifier makeModId(String path) {
-        return Identifier.of(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     private static void addItemGroups() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((entries) ->
-                entries.addAfter(Blocks.STONECUTTER.asItem(), ModBlocks.WOODCUTTER.asItem()));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS)
+                .register((entries) ->
+                entries.insertAfter(Blocks.STONECUTTER.asItem(), ModBlocks.WOODCUTTER.asItem()));
     }
 }

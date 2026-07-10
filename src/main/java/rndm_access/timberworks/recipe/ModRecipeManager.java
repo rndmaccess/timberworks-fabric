@@ -1,11 +1,11 @@
 package rndm_access.timberworks.recipe;
 
-import net.minecraft.recipe.RecipePropertySet;
-import net.minecraft.recipe.display.CuttingRecipeDisplay;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.RecipePropertySet;
+import net.minecraft.world.item.crafting.SelectableRecipe;
 
 public interface ModRecipeManager {
-    RecipePropertySet getPropertySet(RegistryKey<RecipePropertySet> key);
+    RecipePropertySet getPropertySet(ResourceKey<RecipePropertySet> key);
 
-    CuttingRecipeDisplay.Grouping<WoodcuttingRecipe> getWoodcutterRecipes();
+    SelectableRecipe.SingleInputSet<WoodcuttingRecipe> getWoodcutterRecipes();
 }

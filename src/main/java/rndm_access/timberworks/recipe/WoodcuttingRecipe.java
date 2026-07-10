@@ -5,19 +5,25 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import rndm_access.timberworks.core.ModBlocks;
 import rndm_access.timberworks.core.ModRecipeBookCategories;
 import rndm_access.timberworks.core.ModRecipeSerializers;
@@ -27,12 +33,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class WoodcuttingRecipe implements Recipe<SingleStackRecipeInput> {
+public class WoodcuttingRecipe implements Recipe<SingleRecipeInput> {
     private final Ingredient ingredient;
     private final ItemStack result;
     private final String group;
     @Nullable
-    private IngredientPlacement ingredientPlacement;
+    private PlacementInfo ingredientPlacement;
 
     public WoodcuttingRecipe(String group, Ingredient ingredient, ItemStack result) {
         this.group = group;
@@ -50,26 +56,26 @@ public class WoodcuttingRecipe implements Recipe<SingleStackRecipeInput> {
         return ModRecipeSerializers.WOODCUTTING;
     }
 
-    public List<RecipeDisplay> getDisplays() {
-        SlotDisplay ingredientDisplay = this.getIngredient().toDisplay();
+    public List<RecipeDisplay> display() {
+        SlotDisplay ingredientDisplay = this.getIngredient().display();
         Item woodcutterItem = ModBlocks.WOODCUTTER.asItem();
         SlotDisplay.ItemSlotDisplay craftingStationDisplay = new SlotDisplay.ItemSlotDisplay(woodcutterItem);
         return List.of(new WoodcutterRecipeDisplay(ingredientDisplay, this.createResultDisplay(), craftingStationDisplay));
     }
 
     public SlotDisplay createResultDisplay() {
-        return new SlotDisplay.StackSlotDisplay(this.getResult());
+        return new SlotDisplay.ItemStackSlotDisplay(this.getResult());
     }
 
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return ModRecipeBookCategories.WOODCUTTER;
     }
 
-    public boolean matches(SingleStackRecipeInput singleStackRecipeInput, World world) {
+    public boolean matches(SingleRecipeInput singleStackRecipeInput, Level world) {
         return this.ingredient.test(singleStackRecipeInput.item());
     }
 
-    public String getGroup() {
+    public @NonNull String group() {
         return this.group;
     }
 
@@ -81,45 +87,45 @@ public class WoodcuttingRecipe implements Recipe<SingleStackRecipeInput> {
         return this.result;
     }
 
-    public IngredientPlacement getIngredientPlacement() {
+    public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
-            this.ingredientPlacement = IngredientPlacement.forSingleSlot(this.ingredient);
+            this.ingredientPlacement = PlacementInfo.create(this.ingredient);
         }
         return this.ingredientPlacement;
     }
 
-    public ItemStack craft(SingleStackRecipeInput singleStackRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public ItemStack craft(SingleRecipeInput singleStackRecipeInput, HolderLookup.Provider wrapperLookup) {
         return this.result.copy();
     }
 
     public static class Serializer<T extends WoodcuttingRecipe> implements RecipeSerializer<T> {
         private final MapCodec<T> codec;
-        private final PacketCodec<RegistryByteBuf, T> packetCodec;
+        private final StreamCodec<RegistryFriendlyByteBuf, T> packetCodec;
 
         public Serializer(RecipeFactory<T> recipeFactory) {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> {
                 Products.P3<RecordCodecBuilder.Mu<T>, String, Ingredient, ItemStack> var10000 =
                         instance.group(Codec.STRING.optionalFieldOf("group", "")
-                        .forGetter(WoodcuttingRecipe::getGroup), Ingredient.CODEC.fieldOf("ingredient")
-                        .forGetter(WoodcuttingRecipe::getIngredient), ItemStack.VALIDATED_CODEC.fieldOf("result")
+                        .forGetter(WoodcuttingRecipe::group), Ingredient.CODEC.fieldOf("ingredient")
+                        .forGetter(WoodcuttingRecipe::getIngredient), ItemStack.STRICT_CODEC.fieldOf("result")
                         .forGetter(WoodcuttingRecipe::getResult));
 
                 Objects.requireNonNull(recipeFactory);
                 return var10000.apply(instance, recipeFactory::create);
             });
 
-            PacketCodec<ByteBuf, String> groupCodec = PacketCodecs.STRING;
-            Function<T, String> groupFunc = WoodcuttingRecipe::getGroup;
-            PacketCodec<RegistryByteBuf, Ingredient> ingredientCodec = Ingredient.PACKET_CODEC;
+            StreamCodec<ByteBuf, String> groupCodec = ByteBufCodecs.STRING_UTF8;
+            Function<T, String> groupFunc = WoodcuttingRecipe::group;
+            StreamCodec<RegistryFriendlyByteBuf, Ingredient> ingredientCodec = Ingredient.CONTENTS_STREAM_CODEC;
             Function<T, Ingredient> ingredientFunc = WoodcuttingRecipe::getIngredient;
-            PacketCodec<RegistryByteBuf, ItemStack> resultCodec = ItemStack.PACKET_CODEC;
+            StreamCodec<RegistryFriendlyByteBuf, ItemStack> resultCodec = ItemStack.STREAM_CODEC;
             Function<T, ItemStack> resultFunc = WoodcuttingRecipe::getResult;
             Objects.requireNonNull(recipeFactory);
-            this.packetCodec = PacketCodec.tuple(groupCodec, groupFunc, ingredientCodec, ingredientFunc, resultCodec,
+            this.packetCodec = StreamCodec.composite(groupCodec, groupFunc, ingredientCodec, ingredientFunc, resultCodec,
                     resultFunc, recipeFactory::create);
         }
 
-        public Serializer(MapCodec<T> codec, PacketCodec<RegistryByteBuf, T> packetCodec) {
+        public Serializer(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> packetCodec) {
             this.codec = codec;
             this.packetCodec = packetCodec;
         }
@@ -129,7 +135,7 @@ public class WoodcuttingRecipe implements Recipe<SingleStackRecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, T> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
             return this.packetCodec;
         }
     }

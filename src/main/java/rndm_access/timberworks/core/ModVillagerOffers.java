@@ -1,31 +1,27 @@
 package rndm_access.timberworks.core;
 
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
-
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.block.Blocks;
 import java.util.Optional;
 
 public final class ModVillagerOffers {
 
     public static void register() {
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.LUMBERJACK, 1, (factories) -> {
-            factories.add(new ItemForEmeraldFactory(new TradedItem(Items.APPLE), 16, 2));
+            factories.add(new ItemForEmeraldFactory(new ItemCost(Items.APPLE), 16, 2));
             String ADModId = "assorted-discoveries";
 
             if (FabricLoader.getInstance().isModLoaded(ADModId)) {
-                Item spruceCone = Registries.ITEM.get(Identifier.of(ADModId, "spruce_cone"));
-                factories.add(new ItemForEmeraldFactory(new TradedItem(spruceCone), 10, 2));
+                Item spruceCone = BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(ADModId, "spruce_cone"));
+                factories.add(new ItemForEmeraldFactory(new ItemCost(spruceCone), 10, 2));
             }
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.LUMBERJACK, 2, factories -> {
@@ -36,15 +32,15 @@ public final class ModVillagerOffers {
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.LUMBERJACK,
                 3, factories -> {
-            factories.add(new SellItemFactory(new TradedItem(Blocks.OAK_LOG, 5),
+            factories.add(new SellItemFactory(new ItemCost(Blocks.OAK_LOG, 5),
                     new ItemStack(Items.CHARCOAL, 5), 5, 15));
-            factories.add(new SellItemFactory(new TradedItem(Blocks.BIRCH_LOG, 5),
+            factories.add(new SellItemFactory(new ItemCost(Blocks.BIRCH_LOG, 5),
                     new ItemStack(Items.CHARCOAL, 5), 5, 15));
-            factories.add(new SellItemFactory(new TradedItem(Blocks.JUNGLE_LOG, 5),
+            factories.add(new SellItemFactory(new ItemCost(Blocks.JUNGLE_LOG, 5),
                     new ItemStack(Items.CHARCOAL, 5), 5, 15));
-            factories.add(new SellItemFactory(new TradedItem(Blocks.ACACIA_LOG, 5),
+            factories.add(new SellItemFactory(new ItemCost(Blocks.ACACIA_LOG, 5),
                     new ItemStack(Items.CHARCOAL, 5), 5, 15));
-            factories.add(new SellItemFactory(new TradedItem(Blocks.DARK_OAK_LOG, 5),
+            factories.add(new SellItemFactory(new ItemCost(Blocks.DARK_OAK_LOG, 5),
                     new ItemStack(Items.CHARCOAL, 5), 5, 15));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.LUMBERJACK, 4, factories -> {
@@ -68,36 +64,36 @@ public final class ModVillagerOffers {
     }
 
     private record EmeraldForItemFactory(int emeralds, ItemStack sellItem, int maxTrades, int xp,
-                                         float priceMultiplier) implements TradeOffers.Factory {
+                                         float priceMultiplier) implements VillagerTrades.ItemListing {
         @Override
-        public TradeOffer create(Entity entity, Random random) {
-            TradedItem tradedItem = new TradedItem(Items.EMERALD, emeralds);
-            return new TradeOffer(tradedItem, sellItem, maxTrades, xp, priceMultiplier);
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
+            ItemCost tradedItem = new ItemCost(Items.EMERALD, emeralds);
+            return new MerchantOffer(tradedItem, sellItem, maxTrades, xp, priceMultiplier);
         }
     }
 
-    private record ItemForEmeraldFactory(TradedItem buyItem, int maxTrades, int xp) implements TradeOffers.Factory {
+    private record ItemForEmeraldFactory(ItemCost buyItem, int maxTrades, int xp) implements VillagerTrades.ItemListing {
         @Override
-        public TradeOffer create(Entity entity, Random random) {
-            return new TradeOffer(buyItem, new ItemStack(Items.EMERALD), maxTrades, xp, 0.05F);
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
+            return new MerchantOffer(buyItem, new ItemStack(Items.EMERALD), maxTrades, xp, 0.05F);
         }
     }
 
-    private record SellItemFactory(TradedItem buyItem, ItemStack forSale, int maxTrades, int xp)
-            implements TradeOffers.Factory {
+    private record SellItemFactory(ItemCost buyItem, ItemStack forSale, int maxTrades, int xp)
+            implements VillagerTrades.ItemListing {
         @Override
-        public TradeOffer create(Entity entity, Random random) {
-            Optional<TradedItem> emeraldTradeItem = Optional.of(new TradedItem(Items.EMERALD));
-            return new TradeOffer(buyItem, emeraldTradeItem, forSale, maxTrades, xp, 0.05F);
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
+            Optional<ItemCost> emeraldTradeItem = Optional.of(new ItemCost(Items.EMERALD));
+            return new MerchantOffer(buyItem, emeraldTradeItem, forSale, maxTrades, xp, 0.05F);
         }
     }
 
     private record MasterFactory(int emeralds, ItemStack forSale, int maxTrades, float priceMultiplier)
-            implements TradeOffers.Factory {
+            implements VillagerTrades.ItemListing {
         @Override
-        public TradeOffer create(Entity entity, Random random) {
-            TradedItem tradedItem = new TradedItem(Items.EMERALD, emeralds);
-            return new TradeOffer(tradedItem, forSale, maxTrades, 0, priceMultiplier);
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
+            ItemCost tradedItem = new ItemCost(Items.EMERALD, emeralds);
+            return new MerchantOffer(tradedItem, forSale, maxTrades, 0, priceMultiplier);
         }
     }
 }

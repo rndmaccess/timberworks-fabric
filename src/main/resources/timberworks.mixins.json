@@ -1,11 +1,9 @@
 {
 	"required": true,
 	"package": "rndm_access.timberworks.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [],
 	"injectors": {
-		"defaultRequire": 1
+		"defaultRequire": 0
 	}
 }

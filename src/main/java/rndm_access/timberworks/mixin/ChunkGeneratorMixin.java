@@ -1,41 +1,41 @@
 package rndm_access.timberworks.mixin;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.StructureSet;
-import net.minecraft.structure.StructureTemplateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.noise.NoiseConfig;
-import net.minecraft.world.gen.structure.Structure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.SectionPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {
     @Inject(method = "trySetStructureStart", at = @At("HEAD"), cancellable = true)
-    public void trySetStructureStart(StructureSet.WeightedEntry weightedEntry, StructureAccessor structureAccessor,
-                                     DynamicRegistryManager dynamicRegistryManager, NoiseConfig noiseConfig,
-                                     StructureTemplateManager structureManager, long seed, Chunk chunk, ChunkPos pos,
-                                     ChunkSectionPos sectionPos, RegistryKey<World> dimension,
+    public void trySetStructureStart(StructureSet.StructureSelectionEntry weightedEntry, StructureManager structureAccessor,
+                                     RegistryAccess dynamicRegistryManager, RandomState noiseConfig,
+                                     StructureTemplateManager structureManager, long seed, ChunkAccess chunk, ChunkPos pos,
+                                     SectionPos sectionPos, ResourceKey<Level> dimension,
                                      CallbackInfoReturnable<Boolean> cir) {
-        Optional<RegistryKey<Structure>> structureKey = weightedEntry.structure().getKey();
+        Optional<ResourceKey<Structure>> structureKey = weightedEntry.structure().unwrapKey();
 
         if (structureKey.isPresent()) {
-            String structureName = structureKey.get().getValue().toString();
+            String structureName = structureKey.get().location().toString();
 
             // TODO: Implement conditional structures later! Maybe do it through data instead!
             /*
@@ -47,14 +47,14 @@ public class ChunkGeneratorMixin {
     }
 
     @Inject(method = "locateStructure*", at = @At("HEAD"), cancellable = true)
-    public void locateStructure(ServerWorld world, RegistryEntryList<Structure> structures, BlockPos center,
+    public void locateStructure(ServerLevel world, HolderSet<Structure> structures, BlockPos center,
                                 int radius, boolean skipReferencedStructures,
-                                CallbackInfoReturnable<Pair<BlockPos, RegistryEntry<Structure>>> cir) {
+                                CallbackInfoReturnable<Pair<BlockPos, Holder<Structure>>> cir) {
         structures.stream().forEach(structure -> {
-            Optional<RegistryKey<Structure>> structureKey = structure.getKey();
+            Optional<ResourceKey<Structure>> structureKey = structure.unwrapKey();
 
             if (structureKey.isPresent()) {
-                String structureName = structureKey.get().getValue().toString();
+                String structureName = structureKey.get().location().toString();
 
                 // TODO: Implement conditional structures later! Maybe do it through data instead!
                 /*

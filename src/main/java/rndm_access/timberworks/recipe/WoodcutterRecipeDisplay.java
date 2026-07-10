@@ -2,10 +2,10 @@ package rndm_access.timberworks.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record WoodcutterRecipeDisplay(SlotDisplay input, SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
     public static final MapCodec<WoodcutterRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(
@@ -13,8 +13,8 @@ public record WoodcutterRecipeDisplay(SlotDisplay input, SlotDisplay result, Slo
                     .forGetter(WoodcutterRecipeDisplay::input), SlotDisplay.CODEC.fieldOf("result")
                     .forGetter(WoodcutterRecipeDisplay::result), SlotDisplay.CODEC.fieldOf("crafting_station")
                     .forGetter(WoodcutterRecipeDisplay::craftingStation)).apply(instance, WoodcutterRecipeDisplay::new));
-    public static final PacketCodec<RegistryByteBuf, WoodcutterRecipeDisplay> PACKET_CODEC;
-    public static final RecipeDisplay.Serializer<WoodcutterRecipeDisplay> SERIALIZER;
+    public static final StreamCodec<RegistryFriendlyByteBuf, WoodcutterRecipeDisplay> PACKET_CODEC;
+    public static final RecipeDisplay.Type<WoodcutterRecipeDisplay> SERIALIZER;
 
     public WoodcutterRecipeDisplay(SlotDisplay input, SlotDisplay result, SlotDisplay craftingStation) {
         this.input = input;
@@ -22,7 +22,7 @@ public record WoodcutterRecipeDisplay(SlotDisplay input, SlotDisplay result, Slo
         this.craftingStation = craftingStation;
     }
 
-    public RecipeDisplay.Serializer<WoodcutterRecipeDisplay> serializer() {
+    public RecipeDisplay.Type<WoodcutterRecipeDisplay> type() {
         return SERIALIZER;
     }
 
@@ -39,9 +39,9 @@ public record WoodcutterRecipeDisplay(SlotDisplay input, SlotDisplay result, Slo
     }
 
     static {
-        PACKET_CODEC = PacketCodec.tuple(SlotDisplay.PACKET_CODEC, WoodcutterRecipeDisplay::input,
-                SlotDisplay.PACKET_CODEC, WoodcutterRecipeDisplay::result, SlotDisplay.PACKET_CODEC,
+        PACKET_CODEC = StreamCodec.composite(SlotDisplay.STREAM_CODEC, WoodcutterRecipeDisplay::input,
+                SlotDisplay.STREAM_CODEC, WoodcutterRecipeDisplay::result, SlotDisplay.STREAM_CODEC,
                 WoodcutterRecipeDisplay::craftingStation, WoodcutterRecipeDisplay::new);
-        SERIALIZER = new RecipeDisplay.Serializer<>(CODEC, PACKET_CODEC);
+        SERIALIZER = new RecipeDisplay.Type<>(CODEC, PACKET_CODEC);
     }
 }
