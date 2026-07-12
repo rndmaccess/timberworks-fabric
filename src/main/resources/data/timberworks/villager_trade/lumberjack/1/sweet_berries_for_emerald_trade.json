@@ -1,6 +1,6 @@
 {
   "gives": {
-    "id": "minecraft:sweet_berry"
+    "id": "minecraft:sweet_berries"
   },
   "wants": {
     "id": "minecraft:emerald"

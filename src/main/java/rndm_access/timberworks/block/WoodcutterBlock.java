@@ -25,8 +25,9 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 import rndm_access.timberworks.Timberworks;
-import rndm_access.timberworks.block_screen.WoodcutterScreenHandler;
+import rndm_access.timberworks.menu.WoodcutterMenu;
 
 public class WoodcutterBlock extends Block {
     public static final MapCodec<WoodcutterBlock> CODEC;
@@ -48,7 +49,7 @@ public class WoodcutterBlock extends Block {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    protected @NonNull InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (!world.isClientSide()) {
             player.openMenu(state.getMenuProvider(world, pos));
         }
@@ -60,8 +61,7 @@ public class WoodcutterBlock extends Block {
                                                                 BlockPos pos) {
         return new SimpleMenuProvider((syncId, playerInventory, player) -> {
             ContainerLevelAccess context = ContainerLevelAccess.create(world, pos);
-
-            return new WoodcutterScreenHandler(syncId, playerInventory, context);
+            return new WoodcutterMenu(syncId, playerInventory, context);
         }, TITLE);
     }
 
@@ -87,12 +87,12 @@ public class WoodcutterBlock extends Block {
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NonNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+    protected boolean isPathfindable(@NonNull BlockState state, @NonNull PathComputationType type) {
         return false;
     }
 

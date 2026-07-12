@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +40,7 @@ public final class ModVillagerProfessions {
     }
 
     public static void register() {
-        register(LUMBERJACK, ModPointOfInterestTypes.LUMBERJACK,
+        register(LUMBERJACK, ModPoiTypes.LUMBERJACK,
                 ModSoundEvents.UI_WOODCUTTER_TAKE_RESULT,
                 Int2ObjectMap.ofEntries(
                         Int2ObjectMap.entry(1, ModTradeSets.LUMBERJACK_LEVEL_1),

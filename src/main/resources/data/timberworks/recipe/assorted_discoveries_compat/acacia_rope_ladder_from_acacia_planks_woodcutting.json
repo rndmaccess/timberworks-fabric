@@ -17,7 +17,7 @@
         },
         {
           "condition": "assorted-discoveries:config_entry_enabled",
-          "value": "assorted-discoveries:enable_wooden_rope_ladders"
+          "value": "enable_wooden_rope_ladders"
         }
       ]
     }

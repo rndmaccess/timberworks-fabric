@@ -17,7 +17,7 @@
         },
         {
           "condition": "assorted-discoveries:config_entry_enabled",
-          "value": "assorted-discoveries:enable_stripped_wooden_walls"
+          "value": "enable_stripped_wooden_walls"
         }
       ]
     }

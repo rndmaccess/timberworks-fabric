@@ -21,15 +21,14 @@ public class Timberworks implements ModInitializer {
         ModSoundEvents.register();
 
         // Block entity registration
-        ModScreenHandlerTypes.register();
+        ModMenus.register();
         ModRecipeTypes.register();
         ModRecipeSerializers.register();
         ModRecipeBookCategories.register();
 
         // Entity registration
-        ModPointOfInterestTypes.register();
+        ModPoiTypes.register();
         ModVillagerProfessions.register();
-        ModVillagerOffers.register();
         ModVillagerTypes.register();
 
         Timberworks.addItemGroups();

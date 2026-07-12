@@ -1,199 +1,217 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package rndm_access.timberworks.screen;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.recipe.display.CuttingRecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.recipe.display.SlotDisplayContexts;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.context.ContextParameterMap;
-import net.minecraft.util.math.MathHelper;
-import rndm_access.timberworks.block_screen.WoodcutterScreenHandler;
+import com.mojang.blaze3d.platform.cursor.CursorTypes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.context.ContextMap;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.SelectableRecipe;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import org.jspecify.annotations.NonNull;
+import rndm_access.timberworks.menu.WoodcutterMenu;
 import rndm_access.timberworks.recipe.WoodcuttingRecipe;
 
-import java.util.Objects;
+public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
+    private static final Identifier SCROLLER_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/scroller");
+    private static final Identifier SCROLLER_DISABLED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/scroller_disabled");
+    private static final Identifier RECIPE_SELECTED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe_selected");
+    private static final Identifier RECIPE_HIGHLIGHTED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe_highlighted");
+    private static final Identifier RECIPE_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe");
+    private static final Identifier BG_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/stonecutter.png");
+    private static final int SCROLLER_WIDTH = 12;
+    private static final int SCROLLER_HEIGHT = 15;
+    private static final int RECIPES_COLUMNS = 4;
+    private static final int RECIPES_ROWS = 3;
+    private static final int RECIPES_IMAGE_SIZE_WIDTH = 16;
+    private static final int RECIPES_IMAGE_SIZE_HEIGHT = 18;
+    private static final int SCROLLER_FULL_HEIGHT = 54;
+    private static final int RECIPES_X = 52;
+    private static final int RECIPES_Y = 14;
+    private float scrollOffs;
+    private boolean scrolling;
+    private int startIndex;
+    private boolean displayRecipes;
 
-public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
-    private static final Identifier SCROLLER_TEXTURE
-            = Identifier.ofVanilla("container/stonecutter/scroller");
-    private static final Identifier SCROLLER_DISABLED_TEXTURE
-            = Identifier.ofVanilla("container/stonecutter/scroller_disabled");
-    private static final Identifier RECIPE_SELECTED_TEXTURE
-            = Identifier.ofVanilla("container/stonecutter/recipe_selected");
-    private static final Identifier RECIPE_HIGHLIGHTED_TEXTURE
-            = Identifier.ofVanilla("container/stonecutter/recipe_highlighted");
-    private static final Identifier RECIPE_TEXTURE = Identifier.ofVanilla("container/stonecutter/recipe");
-    private static final Identifier TEXTURE = Identifier.ofVanilla("textures/gui/container/stonecutter.png");
-    private float scrollAmount;
-    private boolean mouseClicked;
-    private int scrollOffset;
-    private boolean canCraft;
-
-    public WoodcutterScreen(WoodcutterScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
-        handler.setContentsChangedListener(this::onInventoryChange);
-        --this.titleY;
+    public WoodcutterScreen(final WoodcutterMenu menu, final Inventory inventory, final Component title) {
+        super(menu, inventory, title);
+        menu.registerUpdateListener(this::containerChanged);
+        --this.titleLabelY;
     }
 
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
-    }
-
-    @Override
-    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        int i = this.x;
-        int j = this.y;
-        int k = (int)(41.0F * this.scrollAmount);
-        int l = this.x + 52;
-        int m = this.y + 14;
-        int n = this.scrollOffset + 12;
-
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, this.backgroundWidth,
-                this.backgroundHeight, 256, 256);
-        Identifier identifier = this.shouldScroll() ? SCROLLER_TEXTURE : SCROLLER_DISABLED_TEXTURE;
-        context.drawGuiTexture(RenderLayer::getGuiTextured, identifier, i + 119, j + 15 + k, 12, 15);
-        this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
-        this.renderRecipeIcons(context, l, m, n);
-    }
-
-    @Override
-    protected void drawMouseoverTooltip(DrawContext drawContext, int x, int y) {
-        super.drawMouseoverTooltip(drawContext, x, y);
-        if (this.canCraft) {
-            int i = this.x + 52;
-            int j = this.y + 14;
-            int k = this.scrollOffset + 12;
-            CuttingRecipeDisplay.Grouping<WoodcuttingRecipe> grouping = this.handler.getAvailableRecipes();
-
-            for(int l = this.scrollOffset; l < k && l < grouping.size(); ++l) {
-                int m = l - this.scrollOffset;
-                int n = i + m % 4 * 16;
-                int o = j + m / 4 * 18 + 2;
-                if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    assert this.client != null;
-                    assert this.client.world != null;
-                    ContextParameterMap contextParameterMap = SlotDisplayContexts.createParameters(this.client.world);
-                    SlotDisplay slotDisplay = grouping.entries().get(l).recipe().optionDisplay();
-                    drawContext.drawItemTooltip(this.textRenderer, slotDisplay.getFirst(contextParameterMap), x, y);
-                }
-            }
-        }
-    }
-
-    private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
-            int j = i - this.scrollOffset;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int m = y + l * 18 + 2;
-            Identifier identifier;
-
-            if (i == this.handler.getSelectedRecipe()) {
-                identifier = RECIPE_SELECTED_TEXTURE;
-            } else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
-                identifier = RECIPE_HIGHLIGHTED_TEXTURE;
+    public void extractBackground(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+        int xo = this.leftPos;
+        int yo = this.topPos;
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, xo, yo, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        int sy = (int)(41.0F * this.scrollOffs);
+        Identifier sprite = this.isScrollBarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
+        int scrollerXStart = xo + 119;
+        int scrollerYStart = yo + 15;
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, scrollerXStart, scrollerYStart + sy, 12, 15);
+        if (mouseX >= scrollerXStart && mouseY >= scrollerYStart && mouseX < scrollerXStart + 12 && mouseY < scrollerYStart + 54) {
+            if (this.isScrollBarActive()) {
+                graphics.requestCursor(this.scrolling ? CursorTypes.RESIZE_NS : CursorTypes.POINTING_HAND);
             } else {
-                identifier = RECIPE_TEXTURE;
+                graphics.requestCursor(CursorTypes.NOT_ALLOWED);
             }
-            context.drawGuiTexture(RenderLayer::getGuiTextured, identifier, k, m - 1, 16, 18);
         }
+
+        int x = this.leftPos + 52;
+        int y = this.topPos + 14;
+        int endIndex = this.startIndex + 12;
+        this.extractButtons(graphics, mouseX, mouseY, x, y, endIndex);
+        this.extractRecipes(graphics, x, y, endIndex);
     }
 
-    private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        CuttingRecipeDisplay.Grouping<WoodcuttingRecipe> grouping = this.handler.getAvailableRecipes();
-        assert this.client != null;
-        assert client.world != null;
-        ContextParameterMap contextParameterMap = SlotDisplayContexts.createParameters(client.world);
+    protected void extractTooltip(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY) {
+        super.extractTooltip(graphics, mouseX, mouseY);
+        if (this.displayRecipes) {
+            int edgeLeft = this.leftPos + 52;
+            int edgeTop = this.topPos + 14;
+            int endIndex = this.startIndex + 12;
+            SelectableRecipe.SingleInputSet<WoodcuttingRecipe> visibleRecipes = this.menu.getVisibleRecipes();
 
-        for(int i = this.scrollOffset; i < scrollOffset && i < grouping.size(); ++i) {
-            int j = i - this.scrollOffset;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int m = y + l * 18 + 2;
-            SlotDisplay slotDisplay = grouping.entries().get(i).recipe().optionDisplay();
-            context.drawItem(slotDisplay.getFirst(contextParameterMap), k, m);
+            for(int index = this.startIndex; index < endIndex && index < visibleRecipes.size(); ++index) {
+                int posIndex = index - this.startIndex;
+                int itemLeft = edgeLeft + posIndex % 4 * 16;
+                int itemRight = edgeTop + posIndex / 4 * 18 + 2;
+                if (mouseX >= itemLeft && mouseX < itemLeft + 16 && mouseY >= itemRight && mouseY < itemRight + 18) {
+                    assert this.minecraft.level != null;
+                    ContextMap context = SlotDisplayContext.fromLevel(this.minecraft.level);
+                    SlotDisplay buttonIcon = visibleRecipes.entries().get(index).recipe().optionDisplay();
+                    graphics.setTooltipForNextFrame(this.font, buttonIcon.resolveForFirstStack(context), mouseX, mouseY);
+                }
+            }
         }
+
     }
 
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        this.mouseClicked = false;
-        if (this.canCraft) {
-            MinecraftClient client = Objects.requireNonNull(this.client);
-            int i = this.x + 52;
-            int j = this.y + 14;
-            int k = this.scrollOffset + 12;
+    private void extractButtons(final GuiGraphicsExtractor graphics, final int xm, final int ym, final int x, final int y, final int endIndex) {
+        for(int index = this.startIndex; index < endIndex && index < this.menu.getNumberOfVisibleRecipes(); ++index) {
+            int posIndex = index - this.startIndex;
+            int posX = x + posIndex % 4 * 16;
+            int row = posIndex / 4;
+            int posY = y + row * 18 + 2;
+            Identifier sprite;
+            if (index == this.menu.getSelectedRecipeIndex()) {
+                sprite = RECIPE_SELECTED_SPRITE;
+            } else if (xm >= posX && ym >= posY && xm < posX + 16 && ym < posY + 18) {
+                sprite = RECIPE_HIGHLIGHTED_SPRITE;
+            } else {
+                sprite = RECIPE_SPRITE;
+            }
 
-            for(int l = this.scrollOffset; l < k; ++l) {
-                int m = l - this.scrollOffset;
-                double d = mouseX - (double)(i + m % 4 * 16);
-                double e = mouseY - (double)(j + m / 4 * 18);
-                if (d >= 0.0D && e >= 0.0D && d < 16.0D && e < 18.0D && this.handler.onButtonClick(client.player, l)) {
-                    PositionedSoundInstance sound
-                            = PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F);
+            int textureY = posY - 1;
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, posX, textureY, 16, 18);
+            if (xm >= posX && ym >= textureY && xm < posX + 16 && ym < textureY + 18) {
+                graphics.requestCursor(CursorTypes.POINTING_HAND);
+            }
+        }
 
-                    MinecraftClient.getInstance().getSoundManager().play(sound);
-                    Objects.requireNonNull(client.interactionManager).clickButton(this.handler.syncId, l);
-                    return true;
+    }
+
+    private void extractRecipes(final GuiGraphicsExtractor graphics, final int x, final int y, final int endIndex) {
+        SelectableRecipe.SingleInputSet<WoodcuttingRecipe> visibleRecipes = this.menu.getVisibleRecipes();
+        assert this.minecraft.level != null;
+        ContextMap context = SlotDisplayContext.fromLevel(this.minecraft.level);
+
+        for(int index = this.startIndex; index < endIndex && index < visibleRecipes.size(); ++index) {
+            int posIndex = index - this.startIndex;
+            int posX = x + posIndex % 4 * 16;
+            int row = posIndex / 4;
+            int posY = y + row * 18 + 2;
+            SlotDisplay buttonIcon = visibleRecipes.entries().get(index).recipe().optionDisplay();
+            graphics.item(buttonIcon.resolveForFirstStack(context), posX, posY);
+        }
+
+    }
+
+    public boolean mouseClicked(final @NonNull MouseButtonEvent event, final boolean doubleClick) {
+        if (this.displayRecipes) {
+            int xo = this.leftPos + 52;
+            int yo = this.topPos + 14;
+            int endIndex = this.startIndex + 12;
+
+            for(int index = this.startIndex; index < endIndex; ++index) {
+                int posIndex = index - this.startIndex;
+                double xx = event.x() - (double)(xo + posIndex % 4 * 16);
+                double yy = event.y() - (double)(yo + posIndex / 4 * 18);
+                if (xx >= (double) 0.0F && yy >= (double) 0.0F && xx < (double) 16.0F && yy < (double) 18.0F) {
+                    assert this.minecraft.player != null;
+                    if (this.menu.clickMenuButton(this.minecraft.player, index)) {
+                        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                        assert this.minecraft.gameMode != null;
+                        this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
+                        return true;
+                    }
                 }
             }
 
-            i = this.x + 119;
-            j = this.y + 9;
-            if (mouseX >= (double)i && mouseX < (double)(i + 12) && mouseY >= (double)j && mouseY < (double)(j + 54)) {
-                this.mouseClicked = true;
+            xo = this.leftPos + 119;
+            yo = this.topPos + 9;
+            if (event.x() >= (double)xo && event.x() < (double)(xo + 12) && event.y() >= (double)yo && event.y() < (double)(yo + 54)) {
+                this.scrolling = true;
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+
+        return super.mouseClicked(event, doubleClick);
     }
 
-    @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if (this.mouseClicked && this.shouldScroll()) {
-            int i = this.y + 14;
-            int j = i + 54;
-
-            this.scrollAmount = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
-            this.scrollAmount = MathHelper.clamp(this.scrollAmount, 0.0F, 1.0F);
-            this.scrollOffset = (int)((double)(this.scrollAmount * (float)this.getMaxScroll()) + 0.5D) * 4;
+    public boolean mouseDragged(final @NonNull MouseButtonEvent event, final double dx, final double dy) {
+        if (this.scrolling && this.isScrollBarActive()) {
+            int yscr = this.topPos + 14;
+            int yscr2 = yscr + 54;
+            this.scrollOffs = ((float)event.y() - (float)yscr - 7.5F) / ((float)(yscr2 - yscr) - 15.0F);
+            this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0F, 1.0F);
+            this.startIndex = (int)((double)(this.scrollOffs * (float)this.getOffscreenRows()) + (double)0.5F) * 4;
             return true;
         } else {
-            return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+            return super.mouseDragged(event, dx, dy);
         }
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (this.shouldScroll()) {
-            int i = this.getMaxScroll();
-            float f = (float)verticalAmount / (float)i;
-            this.scrollAmount = MathHelper.clamp(this.scrollAmount - f, 0.0F, 1.0F);
-            this.scrollOffset = (int)((double)(this.scrollAmount * (float)i) + 0.5D) * 4;
+    public boolean mouseReleased(final @NonNull MouseButtonEvent event) {
+        this.scrolling = false;
+        return super.mouseReleased(event);
+    }
+
+    public boolean mouseScrolled(final double x, final double y, final double scrollX, final double scrollY) {
+        if (!super.mouseScrolled(x, y, scrollX, scrollY)) {
+            if (this.isScrollBarActive()) {
+                int offscreenRows = this.getOffscreenRows();
+                float scrolledDelta = (float) scrollY / (float) offscreenRows;
+                this.scrollOffs = Mth.clamp(this.scrollOffs - scrolledDelta, 0.0F, 1.0F);
+                this.startIndex = (int) ((double) (this.scrollOffs * (float) offscreenRows) + (double) 0.5F) * 4;
+            }
         }
         return true;
     }
 
-    private boolean shouldScroll() {
-        return this.canCraft && this.handler.getAvailableRecipeCount() > 12;
+    private boolean isScrollBarActive() {
+        return this.displayRecipes && this.menu.getNumberOfVisibleRecipes() > 12;
     }
 
-    protected int getMaxScroll() {
-        return (this.handler.getAvailableRecipeCount() + 4 - 1) / 4 - 3;
+    protected int getOffscreenRows() {
+        return (this.menu.getNumberOfVisibleRecipes() + 4 - 1) / 4 - 3;
     }
 
-    private void onInventoryChange() {
-        this.canCraft = this.handler.canCraft();
-        if (!this.canCraft) {
-            this.scrollAmount = 0.0F;
-            this.scrollOffset = 0;
-        }
+    private void containerChanged() {
+        this.displayRecipes = this.menu.hasInputItem();
+        this.scrollOffs = 0.0F;
+        this.startIndex = 0;
     }
 }
