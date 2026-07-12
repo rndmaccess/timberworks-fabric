@@ -40,13 +40,12 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         this.selectedRecipeIndex = DataSlot.standalone();
         this.recipesForInput = SingleInputSet.empty();
         this.input = ItemStack.EMPTY;
-        this.slotUpdateListener = () -> {
-        };
+        this.slotUpdateListener = () -> {};
         this.container = new SimpleContainer(1) {
             public void setChanged() {
                 super.setChanged();
                 WoodcutterMenu.this.slotsChanged(this);
-                WoodcutterMenu.this.slotUpdateListener.run();
+                //WoodcutterMenu.this.slotUpdateListener.run();
             }
         };
         this.resultContainer = new ResultContainer();

@@ -22,6 +22,7 @@ import net.minecraft.world.item.crafting.SelectableRecipe;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import org.jspecify.annotations.NonNull;
+import rndm_access.timberworks.core.ModSoundEvents;
 import rndm_access.timberworks.menu.WoodcutterMenu;
 import rndm_access.timberworks.recipe.WoodcuttingRecipe;
 
@@ -32,15 +33,6 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     private static final Identifier RECIPE_HIGHLIGHTED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe_highlighted");
     private static final Identifier RECIPE_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe");
     private static final Identifier BG_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/stonecutter.png");
-    private static final int SCROLLER_WIDTH = 12;
-    private static final int SCROLLER_HEIGHT = 15;
-    private static final int RECIPES_COLUMNS = 4;
-    private static final int RECIPES_ROWS = 3;
-    private static final int RECIPES_IMAGE_SIZE_WIDTH = 16;
-    private static final int RECIPES_IMAGE_SIZE_HEIGHT = 18;
-    private static final int SCROLLER_FULL_HEIGHT = 54;
-    private static final int RECIPES_X = 52;
-    private static final int RECIPES_Y = 14;
     private float scrollOffs;
     private boolean scrolling;
     private int startIndex;
@@ -153,7 +145,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
                 if (xx >= (double) 0.0F && yy >= (double) 0.0F && xx < (double) 16.0F && yy < (double) 18.0F) {
                     assert this.minecraft.player != null;
                     if (this.menu.clickMenuButton(this.minecraft.player, index)) {
-                        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSoundEvents.UI_WOODCUTTER_TAKE_RESULT, 1.0F));
                         assert this.minecraft.gameMode != null;
                         this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
                         return true;

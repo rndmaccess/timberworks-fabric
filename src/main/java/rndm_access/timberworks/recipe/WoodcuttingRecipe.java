@@ -7,7 +7,6 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
-import net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay;
 import org.jspecify.annotations.NonNull;
 import rndm_access.timberworks.core.ModBlocks;
 import rndm_access.timberworks.core.ModRecipeBookCategories;
@@ -41,7 +40,7 @@ public class WoodcuttingRecipe extends SingleItemRecipe {
 
     @Override
     public @NonNull List<RecipeDisplay> display() {
-        return List.of(new StonecutterRecipeDisplay(this.input().display(), this.resultDisplay(),
+        return List.of(new WoodcutterRecipeDisplay(this.input().display(), this.resultDisplay(),
                 new SlotDisplay.ItemSlotDisplay(ModBlocks.WOODCUTTER.asItem())));
     }
 
