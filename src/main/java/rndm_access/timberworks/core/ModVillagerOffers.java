@@ -17,6 +17,8 @@ public final class ModVillagerOffers {
     public static void register() {
         TradeOfferHelper.registerVillagerOffers(ModVillagerProfessions.LUMBERJACK, 1, (factories) -> {
             factories.add(new ItemForEmeraldFactory(new ItemCost(Items.APPLE), 16, 2));
+
+
             String ADModId = "assorted-discoveries";
 
             if (FabricLoader.getInstance().isModLoaded(ADModId)) {

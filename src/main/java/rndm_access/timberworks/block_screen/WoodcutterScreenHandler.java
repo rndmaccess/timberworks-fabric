@@ -1,6 +1,5 @@
 package rndm_access.timberworks.block_screen;
 
-import net.minecraft.screen.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SelectableRecipe;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 import rndm_access.timberworks.core.ModBlocks;
 import rndm_access.timberworks.core.ModScreenHandlerTypes;
 import rndm_access.timberworks.recipe.WoodcuttingRecipe;
@@ -26,7 +26,6 @@ import java.util.List;
 public class WoodcutterScreenHandler extends AbstractContainerMenu {
     private final ContainerLevelAccess context;
     private final DataSlot selectedRecipe;
-    private final Level world;
     private SelectableRecipe.SingleInputSet<WoodcuttingRecipe> availableRecipes;
     private ItemStack inputStack;
     private long lastTakeTime;
@@ -57,7 +56,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
         };
         this.output = new ResultContainer();
         this.context = context;
-        this.world = playerInventory.player.level();
+        Level level = playerInventory.player.level();
         this.inputSlot = this.addSlot(new Slot(this.input, 0, 20, 33));
         this.outputSlot = this.addSlot(new Slot(this.output, 1, 143, 33) {
             @Override
@@ -67,7 +66,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
 
             @Override
             public void onTake(Player player, ItemStack stack) {
-                stack.onCraftedBy(player.level(), player, stack.getCount());
+                stack.onCraftedBy(player, stack.getCount());
                 WoodcutterScreenHandler.this.output.awardUsedRecipes(player, this.getInputStacks());
                 ItemStack itemStack = WoodcutterScreenHandler.this.inputSlot.remove(1);
 
@@ -207,7 +206,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
             Item item = itemStack2.getItem();
             itemStack = itemStack2.copy();
             if (index == 1) {
-                item.onCraftedBy(itemStack2, player.level(), player);
+                item.onCraftedBy(itemStack2, player);
                 if (!this.moveItemStackTo(itemStack2, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -251,7 +250,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     }
 
     @Override
-    public void removed(Player player) {
+    public void removed(@NonNull Player player) {
         super.removed(player);
         this.output.removeItemNoUpdate(1);
         this.context.execute((world, pos) -> this.clearContainer(player, this.input));

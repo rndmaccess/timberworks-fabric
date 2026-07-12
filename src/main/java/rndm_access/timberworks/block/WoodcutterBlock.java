@@ -1,7 +1,6 @@
 package rndm_access.timberworks.block;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -50,7 +49,7 @@ public class WoodcutterBlock extends Block {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             player.openMenu(state.getMenuProvider(world, pos));
         }
         return InteractionResult.SUCCESS;
