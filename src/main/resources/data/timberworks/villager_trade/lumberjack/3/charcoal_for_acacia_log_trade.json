@@ -1,0 +1,15 @@
+{
+  "gives": {
+    "count": 5,
+    "id": "minecraft:charcoal"
+  },
+  "wants": {
+    "count": 5,
+    "id": "minecraft:acacia_log"
+  },
+  "additional_wants": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 16.0,
+  "xp": 15
+}

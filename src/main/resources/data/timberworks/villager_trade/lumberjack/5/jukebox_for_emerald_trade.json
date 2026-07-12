@@ -1,0 +1,10 @@
+{
+  "gives": {
+    "id": "minecraft:jukebox"
+  },
+  "wants": {
+    "count": 5,
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 5.0
+}

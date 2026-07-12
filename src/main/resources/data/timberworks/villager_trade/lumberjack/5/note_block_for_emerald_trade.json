@@ -1,0 +1,10 @@
+{
+  "gives": {
+    "count": 3,
+    "id": "minecraft:note_block"
+  },
+  "wants": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 10.0
+}

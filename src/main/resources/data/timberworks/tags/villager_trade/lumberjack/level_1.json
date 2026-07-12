@@ -1,6 +1,6 @@
 {
   "values": [
-    "timberworks:armorer/1/emerald_for_apple_trade",
-    "timberworks:armorer/1/emerald_for_spruce_cone_trade"
+    "timberworks:lumberjack/1/apple_for_emerald_trade",
+    "timberworks:lumberjack/1/sweet_berries_for_emerald_trade"
   ]
 }
