@@ -45,7 +45,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
             public void setChanged() {
                 super.setChanged();
                 WoodcutterMenu.this.slotsChanged(this);
-                //WoodcutterMenu.this.slotUpdateListener.run();
+                WoodcutterMenu.this.slotUpdateListener.run();
             }
         };
         this.resultContainer = new ResultContainer();
@@ -136,13 +136,13 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         if (!item.isEmpty()) {
             this.recipesForInput = new SingleInputSet<>(
                     this.level.recipeAccess()
-                    .getSynchronizedRecipes()
-                    .getAllOfType(ModRecipeTypes.WOODCUTTING).stream()
-                    .filter(holder -> holder.value().input().test(item))
-                    .map(holder -> new SelectableRecipe.SingleInputEntry<>(
-                            holder.value().input(), new SelectableRecipe<>(holder.value().resultDisplay(), Optional.of(holder))
-                    ))
-                    .toList());
+                            .getSynchronizedRecipes()
+                            .getAllOfType(ModRecipeTypes.WOODCUTTING).stream()
+                            .filter(holder -> holder.value().input().test(item))
+                            .map(holder -> new SelectableRecipe.SingleInputEntry<>(
+                                    holder.value().input(), new SelectableRecipe<>(holder.value().resultDisplay(), Optional.of(holder))
+                            ))
+                            .toList());
         } else {
             this.recipesForInput = SingleInputSet.empty();
         }
@@ -168,7 +168,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     public @NonNull MenuType<?> getType() {
-        return MenuType.STONECUTTER;
+        return ModMenus.WOODCUTTER;
     }
 
     public void registerUpdateListener(final Runnable slotUpdateListener) {
