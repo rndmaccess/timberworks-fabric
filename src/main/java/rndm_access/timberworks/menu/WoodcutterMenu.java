@@ -2,6 +2,7 @@ package rndm_access.timberworks.menu;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.SelectableRecipe.SingleInputSet;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
 import rndm_access.timberworks.core.*;
@@ -134,18 +136,24 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!item.isEmpty()) {
-            this.recipesForInput = new SingleInputSet<>(
-                    this.level.recipeAccess()
-                            .getSynchronizedRecipes()
-                            .getAllOfType(ModRecipeTypes.WOODCUTTING).stream()
-                            .filter(holder -> holder.value().input().test(item))
-                            .map(holder -> new SelectableRecipe.SingleInputEntry<>(
-                                    holder.value().input(), new SelectableRecipe<>(holder.value().resultDisplay(), Optional.of(holder))
-                            ))
-                            .toList());
+            Stream<RecipeHolder<WoodcuttingRecipe>> woodcuttingRecipes = this.level.recipeAccess()
+                    .getSynchronizedRecipes().getAllOfType(ModRecipeTypes.WOODCUTTING).stream();
+
+            this.recipesForInput = this.recipesForItem(woodcuttingRecipes, item);
         } else {
             this.recipesForInput = SingleInputSet.empty();
         }
+    }
+
+    private SingleInputSet<WoodcuttingRecipe> recipesForItem(Stream<RecipeHolder<WoodcuttingRecipe>> recipes, ItemStack item) {
+        List<SelectableRecipe.SingleInputEntry<WoodcuttingRecipe>> filteredRecipes
+                = recipes.filter(holder -> holder.value().input().test(item))
+                .map(holder -> {
+                        Ingredient input = holder.value().input();
+                        SlotDisplay resultDisplay = holder.value().resultDisplay();
+                        return new SelectableRecipe.SingleInputEntry<>(input, new SelectableRecipe<>(resultDisplay, Optional.of(holder)));
+                }).toList();
+        return new SingleInputSet<>(filteredRecipes);
     }
 
     private void setupResultSlot(final int index) {
@@ -158,8 +166,12 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         }
 
         usedRecipe.ifPresentOrElse((recipe) -> {
-            this.resultContainer.setRecipeUsed(recipe.recipe().get());
-            this.resultSlot.set((recipe.recipe().get().value()).assemble(new SingleRecipeInput(this.container.getItem(0))));
+            Optional<RecipeHolder<WoodcuttingRecipe>> recipeHolder = recipe.recipe();
+
+            if (recipeHolder.isPresent()) {
+                this.resultContainer.setRecipeUsed(recipeHolder.get());
+                this.resultSlot.set((recipeHolder.get().value()).assemble(new SingleRecipeInput(this.container.getItem(0))));
+            }
         }, () -> {
             this.resultSlot.set(ItemStack.EMPTY);
             this.resultContainer.setRecipeUsed(null);

@@ -4,7 +4,7 @@
     "subtitle": "Woodcutter cuts",
     "sounds": [
       {
-        "name": "assorted-discoveries:ui/woodcutter/take_result", "stream": false
+        "name": "timberworks:ui/woodcutter/take_result", "stream": false
       }
     ]
   }

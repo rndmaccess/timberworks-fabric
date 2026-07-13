@@ -2,6 +2,7 @@ package rndm_access.timberworks.core;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import rndm_access.timberworks.Timberworks;
 
@@ -13,7 +14,8 @@ public final class ModSoundEvents {
     }
 
     private static SoundEvent register(String name) {
-        SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(Timberworks.makeModId(name));
-        return Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.location(), soundEvent);
+        Identifier soundId = Timberworks.makeModId(name);
+        SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(soundId);
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, soundId, soundEvent);
     }
 }
