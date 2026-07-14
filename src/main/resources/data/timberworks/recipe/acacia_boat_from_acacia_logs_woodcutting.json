@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "#minecraft:acacia_logs",
-  "result": {
-    "count": 1,
-    "id": "minecraft:acacia_boat"
-  }
+  "result": "minecraft:acacia_boat"
 }

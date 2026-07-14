@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "minecraft:mangrove_planks",
-  "result": {
-    "count": 1,
-    "id": "minecraft:mangrove_door"
-  }
+  "result": "minecraft:mangrove_door"
 }

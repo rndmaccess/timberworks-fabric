@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "minecraft:cherry_log",
-  "result": {
-    "count": 1,
-    "id": "minecraft:stripped_cherry_wood"
-  }
+  "result": "minecraft:stripped_cherry_wood"
 }

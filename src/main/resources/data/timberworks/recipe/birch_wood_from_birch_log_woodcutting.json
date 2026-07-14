@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "minecraft:birch_log",
-  "result": {
-    "count": 1,
-    "id": "minecraft:birch_wood"
-  }
+  "result": "minecraft:birch_wood"
 }

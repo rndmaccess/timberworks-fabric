@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "#minecraft:mangrove_logs",
-  "result": {
-    "count": 1,
-    "id": "minecraft:mangrove_boat"
-  }
+  "result": "minecraft:mangrove_boat"
 }

@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "#minecraft:dark_oak_logs",
-  "result": {
-    "count": 1,
-    "id": "minecraft:dark_oak_boat"
-  }
+  "result": "minecraft:dark_oak_boat"
 }

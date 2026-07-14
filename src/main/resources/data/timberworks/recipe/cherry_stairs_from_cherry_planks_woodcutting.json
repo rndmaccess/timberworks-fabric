@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "minecraft:cherry_planks",
-  "result": {
-    "count": 1,
-    "id": "minecraft:cherry_stairs"
-  }
+  "result": "minecraft:cherry_stairs"
 }

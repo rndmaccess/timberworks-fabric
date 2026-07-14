@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "minecraft:stripped_acacia_log",
-  "result": {
-    "count": 1,
-    "id": "minecraft:stripped_acacia_wood"
-  }
+  "result": "minecraft:stripped_acacia_wood"
 }

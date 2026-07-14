@@ -1,8 +1,5 @@
 {
   "type": "timberworks:woodcutting",
   "ingredient": "#minecraft:logs",
-  "result": {
-    "count": 1,
-    "id": "minecraft:crafting_table"
-  }
+  "result": "minecraft:crafting_table"
 }
