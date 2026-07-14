@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timberworks:dark_oak_hanging_sign_from_dark_oak_logs_woodcutting"
+    ]
+  },
+  "criteria": {
+    "has_dark_oak_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:dark_oak_logs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "timberworks:dark_oak_hanging_sign_from_dark_oak_logs_woodcutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_oak_log",
+      "has_the_recipe"
+    ]
+  ]
+}

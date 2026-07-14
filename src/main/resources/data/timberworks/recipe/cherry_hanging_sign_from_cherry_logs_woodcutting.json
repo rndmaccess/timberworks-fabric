@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:cherry_logs",
+  "result": "minecraft:cherry_hanging_sign"
+}

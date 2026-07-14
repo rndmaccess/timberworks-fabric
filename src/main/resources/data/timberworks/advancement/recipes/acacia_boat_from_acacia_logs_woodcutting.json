@@ -10,7 +10,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "minecraft:acacia_logs"
+            "items": "#minecraft:acacia_logs"
           }
         ]
       },

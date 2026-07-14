@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:spruce_logs",
+  "result": "minecraft:spruce_shelf"
+}

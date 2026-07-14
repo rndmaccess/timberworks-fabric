@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timberworks:warped_hanging_sign_from_warped_stems_woodcutting"
+    ]
+  },
+  "criteria": {
+    "has_warped_stem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:warped_stems"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "timberworks:warped_hanging_sign_from_warped_stems_woodcutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_stem",
+      "has_the_recipe"
+    ]
+  ]
+}

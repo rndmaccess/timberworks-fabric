@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:bamboo_blocks",
+  "result": "minecraft:bamboo_raft"
+}

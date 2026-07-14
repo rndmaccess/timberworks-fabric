@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:oak_logs",
+  "result": "minecraft:oak_hanging_sign"
+}

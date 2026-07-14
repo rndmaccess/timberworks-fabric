@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:acacia_logs",
+  "result": "minecraft:acacia_shelf"
+}

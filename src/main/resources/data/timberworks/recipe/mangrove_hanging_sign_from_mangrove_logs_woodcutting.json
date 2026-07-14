@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:mangrove_logs",
+  "result": "minecraft:mangrove_hanging_sign"
+}

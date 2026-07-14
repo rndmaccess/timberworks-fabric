@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timberworks:pale_oak_wood_from_pale_oak_log_woodcutting"
+    ]
+  },
+  "criteria": {
+    "has_pale_oak_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:pale_oak_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "timberworks:pale_oak_wood_from_pale_oak_log_woodcutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_pale_oak_log",
+      "has_the_recipe"
+    ]
+  ]
+}

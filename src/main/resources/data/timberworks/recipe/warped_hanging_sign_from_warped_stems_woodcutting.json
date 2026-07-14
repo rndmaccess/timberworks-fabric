@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:warped_stems",
+  "result": "minecraft:warped_hanging_sign"
+}

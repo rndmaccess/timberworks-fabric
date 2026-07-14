@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:jungle_logs",
+  "result": "minecraft:jungle_shelf"
+}
