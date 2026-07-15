@@ -20,8 +20,14 @@
 		],
 		"client": [
 			"rndm_access.timberworks.TimberworksClient"
-		]
-	},
+		],
+      "rei_client": [
+        "rndm_access.timberworks.rei.ReiTimberworksClientPlugin"
+      ],
+      "rei_common": [
+        "rndm_access.timberworks.rei.ReiTimberworksCommonPlugin"
+      ]
+    },
 	"mixins": [
 		"timberworks.mixins.json",
 		{
