@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:holly_planks"
+  "ingredient": "biomeswevegone:holly_planks",
+  "result": {
+    "count": 2,
+    "id": "biomeswevegone:holly_slab"
   },
-  "result": "biomeswevegone:holly_slab",
-  "count": 2,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

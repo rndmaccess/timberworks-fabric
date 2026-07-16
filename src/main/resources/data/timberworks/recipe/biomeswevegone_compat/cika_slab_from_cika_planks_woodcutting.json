@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:cika_planks"
+  "ingredient": "biomeswevegone:cika_planks",
+  "result": {
+    "count": 2,
+    "id": "biomeswevegone:cika_slab"
   },
-  "result": "biomeswevegone:cika_slab",
-  "count": 2,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

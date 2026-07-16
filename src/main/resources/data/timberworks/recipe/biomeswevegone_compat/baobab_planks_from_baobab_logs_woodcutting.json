@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:baobab_logs"
+  "ingredient": "#biomeswevegone:baobab_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:baobab_planks"
   },
-  "result": "biomeswevegone:baobab_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

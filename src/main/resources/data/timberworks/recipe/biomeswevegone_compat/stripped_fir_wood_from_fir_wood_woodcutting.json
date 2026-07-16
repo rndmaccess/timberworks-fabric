@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:fir_wood"
-  },
+  "ingredient": "biomeswevegone:fir_wood",
   "result": "biomeswevegone:stripped_fir_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

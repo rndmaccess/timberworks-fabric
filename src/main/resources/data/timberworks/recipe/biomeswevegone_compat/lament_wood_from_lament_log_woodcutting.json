@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:lament_log"
-  },
+  "ingredient": "biomeswevegone:lament_log",
   "result": "biomeswevegone:lament_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:redwood_logs"
+  "ingredient": "#biomeswevegone:redwood_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:redwood_planks"
   },
-  "result": "biomeswevegone:redwood_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

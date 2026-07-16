@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:mahogany_logs"
+  "ingredient": "#biomeswevegone:mahogany_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:mahogany_planks"
   },
-  "result": "biomeswevegone:mahogany_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

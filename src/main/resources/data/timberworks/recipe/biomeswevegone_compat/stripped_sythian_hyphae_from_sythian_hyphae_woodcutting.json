@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:sythian_hyphae"
-  },
+  "ingredient": "biomeswevegone:sythian_hyphae",
   "result": "biomeswevegone:stripped_sythian_hyphae",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

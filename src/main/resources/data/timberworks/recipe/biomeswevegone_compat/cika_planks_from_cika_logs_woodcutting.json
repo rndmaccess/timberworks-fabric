@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:cika_logs"
+  "ingredient": "#biomeswevegone:cika_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:cika_planks"
   },
-  "result": "biomeswevegone:cika_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

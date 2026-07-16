@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:embur_planks"
-  },
+  "ingredient": "biomeswevegone:embur_planks",
   "result": "biomeswevegone:embur_pressure_plate",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

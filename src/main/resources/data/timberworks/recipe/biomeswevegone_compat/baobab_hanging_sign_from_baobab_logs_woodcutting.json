@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:cherry_log"
-  },
-  "result": "biomeswevegone:cherry_wood",
-  "count": 1,
+  "ingredient": "#biomeswevegone:baobab_logs",
+  "result": "biomeswevegone:baobab_hanging_sign",
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

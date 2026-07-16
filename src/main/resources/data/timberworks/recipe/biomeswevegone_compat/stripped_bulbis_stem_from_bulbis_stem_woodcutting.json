@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:bulbis_stem"
-  },
+  "ingredient": "biomeswevegone:bulbis_stem",
   "result": "biomeswevegone:stripped_bulbis_stem",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

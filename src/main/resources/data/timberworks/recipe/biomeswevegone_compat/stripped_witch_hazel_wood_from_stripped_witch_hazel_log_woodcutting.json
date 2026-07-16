@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:stripped_witch_hazel_log"
-  },
+  "ingredient": "biomeswevegone:stripped_witch_hazel_log",
   "result": "biomeswevegone:stripped_witch_hazel_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:aspen_wood"
-  },
+  "ingredient": "biomeswevegone:aspen_wood",
   "result": "biomeswevegone:stripped_aspen_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

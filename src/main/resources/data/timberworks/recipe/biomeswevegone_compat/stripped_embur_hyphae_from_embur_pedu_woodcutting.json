@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:embur_pedu"
-  },
+  "ingredient": "biomeswevegone:embur_pedu",
   "result": "biomeswevegone:stripped_embur_hyphae",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

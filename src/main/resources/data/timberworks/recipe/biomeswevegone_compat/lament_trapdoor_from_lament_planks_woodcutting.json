@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:lament_planks"
-  },
+  "ingredient": "biomeswevegone:lament_planks",
   "result": "biomeswevegone:lament_trapdoor",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

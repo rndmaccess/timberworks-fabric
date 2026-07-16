@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:fir_planks"
+  "ingredient": "biomeswevegone:fir_planks",
+  "result": {
+    "count": 2,
+    "id": "biomeswevegone:fir_slab"
   },
-  "result": "biomeswevegone:fir_slab",
-  "count": 2,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

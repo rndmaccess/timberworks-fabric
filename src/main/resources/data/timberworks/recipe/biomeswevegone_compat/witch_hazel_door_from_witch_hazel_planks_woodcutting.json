@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:witch_hazel_planks"
-  },
+  "ingredient": "biomeswevegone:witch_hazel_planks",
   "result": "biomeswevegone:witch_hazel_door",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

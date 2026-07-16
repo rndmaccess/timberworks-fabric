@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:redwood_planks"
-  },
+  "ingredient": "biomeswevegone:redwood_planks",
   "result": "biomeswevegone:redwood_pressure_plate",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

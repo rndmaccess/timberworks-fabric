@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:rainbow_eucalyptus_logs"
+  "ingredient": "#biomeswevegone:rainbow_eucalyptus_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:rainbow_eucalyptus_planks"
   },
-  "result": "biomeswevegone:rainbow_eucalyptus_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:white_mangrove_logs"
-  },
+  "ingredient": "#biomeswevegone:white_mangrove_logs",
   "result": "biomeswevegone:white_mangrove_boat",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

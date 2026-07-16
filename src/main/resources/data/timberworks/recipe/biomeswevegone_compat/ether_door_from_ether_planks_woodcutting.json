@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:ether_planks"
-  },
+  "ingredient": "biomeswevegone:ether_planks",
   "result": "biomeswevegone:ether_door",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

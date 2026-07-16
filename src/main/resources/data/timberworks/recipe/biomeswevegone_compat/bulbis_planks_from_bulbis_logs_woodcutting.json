@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:bulbis_logs"
+  "ingredient": "#biomeswevegone:bulbis_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:bulbis_planks"
   },
-  "result": "biomeswevegone:bulbis_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

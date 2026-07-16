@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:rainbow_eucalyptus_log"
-  },
+  "ingredient": "biomeswevegone:rainbow_eucalyptus_log",
   "result": "biomeswevegone:rainbow_eucalyptus_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:cherry_log"
-  },
-  "result": "biomeswevegone:stripped_cherry_log",
-  "count": 1,
+  "ingredient": "#biomeswevegone:aspen_logs",
+  "result": "biomeswevegone:aspen_hanging_sign",
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

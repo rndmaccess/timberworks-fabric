@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:holly_log"
-  },
+  "ingredient": "biomeswevegone:holly_log",
   "result": "biomeswevegone:stripped_holly_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

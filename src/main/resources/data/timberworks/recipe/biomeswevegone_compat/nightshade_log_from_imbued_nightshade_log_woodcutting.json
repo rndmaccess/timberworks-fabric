@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:imbued_nightshade_log"
-  },
+  "ingredient": "biomeswevegone:imbued_nightshade_log",
   "result": "biomeswevegone:nightshade_log",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

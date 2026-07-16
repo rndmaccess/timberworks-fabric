@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:ether_wood"
-  },
+  "ingredient": "biomeswevegone:ether_wood",
   "result": "biomeswevegone:stripped_ether_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

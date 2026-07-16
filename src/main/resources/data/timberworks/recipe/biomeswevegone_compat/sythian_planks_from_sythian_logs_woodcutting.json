@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:sythian_logs"
+  "ingredient": "#biomeswevegone:sythian_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:sythian_planks"
   },
-  "result": "biomeswevegone:sythian_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

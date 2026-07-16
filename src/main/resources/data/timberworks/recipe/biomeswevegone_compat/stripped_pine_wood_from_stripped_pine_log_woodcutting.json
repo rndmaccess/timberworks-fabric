@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:stripped_pine_log"
-  },
+  "ingredient": "biomeswevegone:stripped_pine_log",
   "result": "biomeswevegone:stripped_pine_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

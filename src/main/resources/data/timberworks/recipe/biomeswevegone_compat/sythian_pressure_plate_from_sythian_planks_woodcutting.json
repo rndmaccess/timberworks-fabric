@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:sythian_planks"
-  },
+  "ingredient": "biomeswevegone:sythian_planks",
   "result": "biomeswevegone:sythian_pressure_plate",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

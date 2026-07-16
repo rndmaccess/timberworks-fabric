@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:zelkova_logs"
-  },
+  "ingredient": "#biomeswevegone:zelkova_logs",
   "result": "biomeswevegone:zelkova_boat",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

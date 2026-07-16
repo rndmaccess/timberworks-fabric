@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:palo_verde_wood"
-  },
+  "ingredient": "biomeswevegone:palo_verde_wood",
   "result": "biomeswevegone:stripped_palo_verde_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

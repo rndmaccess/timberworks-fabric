@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:jacaranda_planks"
-  },
+  "ingredient": "biomeswevegone:jacaranda_planks",
   "result": "biomeswevegone:jacaranda_button",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

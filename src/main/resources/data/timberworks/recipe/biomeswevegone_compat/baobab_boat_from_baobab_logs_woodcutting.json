@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:baobab_logs"
-  },
+  "ingredient": "#biomeswevegone:baobab_logs",
   "result": "biomeswevegone:baobab_boat",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

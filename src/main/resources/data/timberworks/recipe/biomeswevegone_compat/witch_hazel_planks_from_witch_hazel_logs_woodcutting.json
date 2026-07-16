@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "tag": "biomeswevegone:witch_hazel_logs"
+  "ingredient": "#biomeswevegone:witch_hazel_logs",
+  "result": {
+    "count": 4,
+    "id": "biomeswevegone:witch_hazel_planks"
   },
-  "result": "biomeswevegone:witch_hazel_planks",
-  "count": 4,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

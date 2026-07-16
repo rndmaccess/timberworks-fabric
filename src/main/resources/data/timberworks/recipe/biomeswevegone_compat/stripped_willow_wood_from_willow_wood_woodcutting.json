@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:willow_wood"
-  },
+  "ingredient": "biomeswevegone:willow_wood",
   "result": "biomeswevegone:stripped_willow_wood",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

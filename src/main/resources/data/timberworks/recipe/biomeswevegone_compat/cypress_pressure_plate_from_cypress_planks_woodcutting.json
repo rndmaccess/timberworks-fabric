@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:cypress_planks"
-  },
+  "ingredient": "biomeswevegone:cypress_planks",
   "result": "biomeswevegone:cypress_pressure_plate",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

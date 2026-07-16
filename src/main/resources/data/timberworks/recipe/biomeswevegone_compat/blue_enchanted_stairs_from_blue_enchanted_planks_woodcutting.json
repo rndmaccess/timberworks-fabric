@@ -1,10 +1,7 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:blue_enchanted_planks"
-  },
+  "ingredient": "biomeswevegone:blue_enchanted_planks",
   "result": "biomeswevegone:blue_enchanted_stairs",
-  "count": 1,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

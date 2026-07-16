@@ -1,10 +1,10 @@
 {
   "type": "timberworks:woodcutting",
-  "ingredient": {
-    "item": "biomeswevegone:green_enchanted_planks"
+  "ingredient": "biomeswevegone:green_enchanted_planks",
+  "result": {
+    "count": 2,
+    "id": "biomeswevegone:green_enchanted_slab"
   },
-  "result": "biomeswevegone:green_enchanted_slab",
-  "count": 2,
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
