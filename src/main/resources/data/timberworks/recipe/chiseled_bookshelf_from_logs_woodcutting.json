@@ -1,0 +1,5 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": "#minecraft:logs",
+  "result": "minecraft:chiseled_bookshelf"
+}
