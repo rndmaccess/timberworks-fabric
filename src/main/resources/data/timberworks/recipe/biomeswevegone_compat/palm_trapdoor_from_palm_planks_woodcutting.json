@@ -1,0 +1,16 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": {
+    "item": "biomeswevegone:palm_planks"
+  },
+  "result": "biomeswevegone:palm_trapdoor",
+  "count": 1,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomeswevegone"
+      ]
+    }
+  ]
+}

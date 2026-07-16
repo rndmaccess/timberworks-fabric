@@ -1,0 +1,16 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": {
+    "item": "biomeswevegone:maple_planks"
+  },
+  "result": "biomeswevegone:maple_pressure_plate",
+  "count": 1,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomeswevegone"
+      ]
+    }
+  ]
+}

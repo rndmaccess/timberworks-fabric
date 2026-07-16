@@ -1,0 +1,16 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": {
+    "item": "biomeswevegone:fungal_imparius_stem"
+  },
+  "result": "biomeswevegone:fungal_imparius_hyphae",
+  "count": 1,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomeswevegone"
+      ]
+    }
+  ]
+}

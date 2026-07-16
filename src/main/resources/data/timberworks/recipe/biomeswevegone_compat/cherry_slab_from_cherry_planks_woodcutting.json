@@ -1,0 +1,16 @@
+{
+  "type": "timberworks:woodcutting",
+  "ingredient": {
+    "item": "biomeswevegone:cherry_planks"
+  },
+  "result": "biomeswevegone:cherry_slab",
+  "count": 2,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomeswevegone"
+      ]
+    }
+  ]
+}
