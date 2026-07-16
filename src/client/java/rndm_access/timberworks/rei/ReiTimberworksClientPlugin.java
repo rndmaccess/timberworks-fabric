@@ -41,9 +41,9 @@ public class ReiTimberworksClientPlugin implements REIClientPlugin {
     @Override
     public void registerTransferHandlers(TransferHandlerRegistry registry) {
         SimpleTransferHandler handler = SimpleTransferHandler.create(
-                WoodcutterMenu.class, // The class of your crafting menu
-                ReiIds.WOOD_CUTTING, // The category identifier of your display
-                new SimpleTransferHandler.IntRange(0, 1) // The range of recipe slots
+                WoodcutterMenu.class,
+                ReiIds.WOOD_CUTTING,
+                new SimpleTransferHandler.IntRange(0, 1) // Recipe slot range
         );
         registry.register(handler);
     }
